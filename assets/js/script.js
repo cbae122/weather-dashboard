@@ -20,19 +20,15 @@ var cityNameEl = $('#city-name');
 var submitButtonEl = $('submit-button');
 var searchedCityEl = $('searchedCity');
 var city;
+var weather = [];
+var citySearch = [];
 
 
-function currentWeather () {
-    var apiUrl = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${city}&units=imperial`
-    var storedCity = JSON.parse(localStorage.getItem('city')) || [];
-
-    fetch(apiUrl)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data)
-        })
-}
-
-formEl.addEventListener('submit', currentWeather);
+function weatherDisplay (weather)
+    $('#day-temp').text(weather[0].temperature);
+    $('#day-wind').text(weather[0].wind);
+    $('#day-humidity').text(weather[0].humidity);
+    $('#searchedCity').text(city);
+    for (var i = 0; i <= 5; i++) {
+        
+    }
