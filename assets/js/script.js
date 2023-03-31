@@ -8,14 +8,31 @@
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
 
-`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`
+// `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`
 
-`https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${city}&units=imperial`
+// `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${city}&units=imperial`
 
 
 var apiKey = 'b63352d7a434d5e352882d0272d386e4';
 
+var formEl = document.querySelector('#city-search-form');
 var cityNameEl = $('#city-name');
 var submitButtonEl = $('submit-button');
 var searchedCityEl = $('searchedCity');
+var city;
 
+
+function currentWeather () {
+    var apiUrl = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${city}&units=imperial`
+    var storedCity = JSON.parse(localStorage.getItem('city')) || [];
+
+    fetch(apiUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data)
+        })
+}
+
+formEl.addEventListener('submit', currentWeather);
