@@ -7,3 +7,11 @@
 // THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
+
+`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`
+
+`https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${city}&units=imperial`
+
+
+var apiKey = 'b63352d7a434d5e352882d0272d386e4';
+
