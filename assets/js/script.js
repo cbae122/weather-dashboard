@@ -15,3 +15,7 @@
 
 var apiKey = 'b63352d7a434d5e352882d0272d386e4';
 
+var cityNameEl = $('#city-name');
+var submitButtonEl = $('submit-button');
+var searchedCityEl = $('searchedCity');
+
