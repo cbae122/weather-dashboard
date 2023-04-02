@@ -45,6 +45,16 @@ function handleFormSubmit(event) {
         var today = dayjs();
         var city = document.getElementById('currentCity');
         city.innerHTML = (data.name + '' + '(' + today.format('MM/DD/YYYY') + ')' + '<img src="' + symbolUrl + '">');
+
+        var temperature = document.getElementById('temperature');
+        temperature.textContent = 'Temperature: ' + data.main.temp + ' °F';
+
+        var humidity = document.getElementById('humidity');
+        humidity.textContent = 'Humidity: ' + data.main.humidity + ' %';
+
+        var wind = document.getElementById('wind-speed');
+        wind.textContent = 'Wind-Speed: ' + data.wind.speed + ' MPH';
+
     })
 
 }
