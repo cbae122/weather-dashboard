@@ -131,7 +131,13 @@ function displaySearchedCities () {
         searchedCityBtn.textContent = `${citySearched[i]}`;
         citySearchEl.appendChild(searchedCityBtn);
     }
-    return;
+
+    var cityListBtn = document.querySelectorAll('.my-2');
+    for (var i = 0; i < cityListBtn.length; i++) {
+        cityListBtn[i].addEventListener('click', function () {
+            firstApi();
+        });
+    }
 };
 
 displaySearchedCities();
