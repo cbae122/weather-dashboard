@@ -137,7 +137,7 @@ function displaySearchedCities () {
     var cityListBtn = document.querySelectorAll('.my-2');
     for (var i = 0; i < cityListBtn.length; i++) {
         cityListBtn[i].addEventListener('click', function () {
-            firstApi();
+            firstApi(this.textContent);
         });
     }
 };
