@@ -8,13 +8,6 @@
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
 
-// `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`
-
-// `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${city}&units=imperial`
-
-
-
-
 var today = dayjs();
 var todaysDate = (today.format('MM/DD/YYYY'));
 var city = '';
@@ -38,32 +31,32 @@ function firstApi(query) {
     console.log(apiUrl);
 
     fetch(apiUrl)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        console.log(data);
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
 
-        var weatherSymbol = data.weather[0].icon;
-        var symbolUrl = `https://openweathermap.org/img/wn/` + weatherSymbol +  `@2x.png`;
-        var today = dayjs();
-        var city = document.getElementById('currentCity');
-        city.innerHTML = (data.name + '' + '(' + today.format('MM/DD/YYYY') + ')' + '<img src="' + symbolUrl + '">');
+            var weatherSymbol = data.weather[0].icon;
+            var symbolUrl = `https://openweathermap.org/img/wn/` + weatherSymbol + `@2x.png`;
+            var today = dayjs();
+            var city = document.getElementById('currentCity');
+            city.innerHTML = (data.name + '' + '(' + today.format('MM/DD/YYYY') + ')' + '<img src="' + symbolUrl + '">');
 
-        var temperature = document.getElementById('temperature');
-        temperature.textContent = 'Temperature: ' + data.main.temp + ' °F';
+            var temperature = document.getElementById('temperature');
+            temperature.textContent = 'Temperature: ' + data.main.temp + ' °F';
 
-        var humidity = document.getElementById('humidity');
-        humidity.textContent = 'Humidity: ' + data.main.humidity + ' %';
+            var humidity = document.getElementById('humidity');
+            humidity.textContent = 'Humidity: ' + data.main.humidity + ' %';
 
-        var wind = document.getElementById('wind-speed');
-        wind.textContent = 'Wind-Speed: ' + data.wind.speed + ' MPH';
+            var wind = document.getElementById('wind-speed');
+            wind.textContent = 'Wind-Speed: ' + data.wind.speed + ' MPH';
 
-        var lat = data.coord.lat;
-        var lon = data.coord.lon;
-        console.log('lat: ' +lat + ' lon:' +lon);
-        secondApi(lat, lon);
-    })
+            var lat = data.coord.lat;
+            var lon = data.coord.lon;
+            console.log('lat: ' + lat + ' lon:' + lon);
+            secondApi(lat, lon);
+        })
 };
 
 function secondApi(lat, lon) {
@@ -72,65 +65,34 @@ function secondApi(lat, lon) {
     console.log(apiUrl);
 
     fetch(apiUrl)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (dataForecast) {
-        console.log(dataForecast);
-        $('#fiveDayForecast').empty();
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (dataForecast) {
+            console.log(dataForecast);
+            // $('#fiveDayForecast').empty();
 
-        for (var i = 1; 1 < 6; i++) {
-            var forecastBody = document.getElementById('fiveDayForecast');
+            for (var i = 0; i < 7; i++) {
+                var cities = document.getElementById('fiveFayForecast');
+                var timing = dataForecast.daily[i].dt;
+                var dates = new Date(timing * 1000);
+                var forecastDays = dayjs(dates).format('MM/DD/YYYY');
+                var weatherSymbols = dataForecast.daily[i].weather[0].icon;
+                var symbolsUrl = `https://openweathermap.org/img/wn/` + weatherSymbols + `@2x.png`;
 
-            var timing = data.daily[i].dt;
-            var date = new Date(timing * 1000);
-            var forecastDays = dayjs(date).format('MM/DD/YYYY');
+                cities.innerHTML = (dataForecast.name + '' + '(' + forecastDays + ')' + '<img src="' + symbolsUrl + '">');
 
+                var temperatures = document.getElementById('temperatures');
+                temperatures.textContent = 'Temperature: ' + dataForecast.daily[i].temp.day + ' °F';
 
-        }
+                var humiditys = document.getElementById('humiditys');
+                humiditys.textContent = 'Humidity: ' + dataForecast.daily[i].humidity + ' %';
 
-        var weatherSymbol = data.weather[0].icon;
-        var symbolUrl = `https://openweathermap.org/img/wn/` + weatherSymbol +  `@2x.png`;
-        var today = dayjs();
-        var city = document.getElementById('currentCity');
-        city.innerHTML = (data.name + '' + '(' + today.format('MM/DD/YYYY') + ')' + '<img src="' + symbolUrl + '">');
+                var winds = document.getElementById('wind-speeds');
+                winds.textContent = 'Wind-Speed: ' + dataForecast.daily[i].wind.speed + ' MPH';
 
-        var temperature = document.getElementById('temperature');
-        temperature.textContent = 'Temperature: ' + data.main.temp + ' °F';
-
-        var humidity = document.getElementById('humidity');
-        humidity.textContent = 'Humidity: ' + data.main.humidity + ' %';
-
-        var wind = document.getElementById('wind-speed');
-        wind.textContent = 'Wind-Speed: ' + data.wind.speed + ' MPH';
-
-    })
+            };
+        });
 };
 
 formEl.addEventListener('submit', handleFormSubmit);
-
-// submitButtonEl.on('click',showWeather);
-
-// function showWeather(event) {
-//     event.preventDefault();
-//     if(citySearch.val().trim() !='') {
-//         city = citySearch.val().trim();
-//         searchedWeather(city);
-//         console.log(event);
-
-//         var searchedCityList = document.getElementById('searched-city-list');
-//         searchedCityList.textContent = '';
-
-
-//     }
-// }
-
-// function searchedWeather(city) {
-//     var apiKey = 'b63352d7a434d5e352882d0272d386e4';
-//     var url = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${city}&units=imperial`;
-
-//     fetch(url)
-//     .then(function (response) {
-//         console.log(response);
-//     })
-// }
