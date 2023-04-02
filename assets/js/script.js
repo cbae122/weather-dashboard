@@ -24,11 +24,16 @@ var weather = [];
 var citySearch = [];
 
 
-function weatherDisplay (weather)
-    $('#day-temp').text(weather[0].temperature);
-    $('#day-wind').text(weather[0].wind);
-    $('#day-humidity').text(weather[0].humidity);
-    $('#searchedCity').text(city);
-    for (var i = 0; i <= 5; i++) {
-        
-    }
+// function weatherDisplay (weather) {
+//     $('#day-temp').text(weather[0].temperature);
+//     $('#day-wind').text(weather[0].wind);
+//     $('#day-humidity').text(weather[0].humidity);
+//     $('#searchedCity').text(city);
+//     for (var i = 0; i <= 5; i++) {
+//         $('#day'+i+'-temp').text(weather[i].temp);
+//     }
+// }
+
+function clearLocalStorage() {
+    localStorage.clear();
+}
