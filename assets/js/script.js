@@ -31,3 +31,12 @@ var submitButtonEl = $('submit-button');
 //     }
 // }
 
+function showWeather(event) {
+    event.preventDefault();
+    if(citySearch.val().trim() !='') {
+        city = citySearch.val().trim();
+        searchedWeather(city);
+
+        
+    }
+}
