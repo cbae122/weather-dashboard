@@ -61,7 +61,8 @@ function firstApi(query) {
 
 function secondApi(lat, lon) {
 
-    var apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
+    var apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&exclude=hourly&exclude=current&exclude=minutely&exclude=alerts&units=imperial&appid=${apiKey}`;
+
     console.log(apiUrl);
 
     fetch(apiUrl)
@@ -70,27 +71,50 @@ function secondApi(lat, lon) {
         })
         .then(function (dataForecast) {
             console.log(dataForecast);
-            // $('#fiveDayForecast').empty();
 
-            for (var i = 0; i < 7; i++) {
-                var cities = document.getElementById('fiveFayForecast');
-                var timing = dataForecast.daily[i].dt;
-                var dates = new Date(timing * 1000);
-                var forecastDays = dayjs(dates).format('MM/DD/YYYY');
-                var weatherSymbols = dataForecast.daily[i].weather[0].icon;
-                var symbolsUrl = `https://openweathermap.org/img/wn/` + weatherSymbols + `@2x.png`;
+            $('#fiveDayForecast').empty();
 
-                cities.innerHTML = (dataForecast.name + '' + '(' + forecastDays + ')' + '<img src="' + symbolsUrl + '">');
+            for (var i = 7; i <= dataForecast.list.length; i += 8) {
+                // for (var i = 7; i <= dataForecast.list.length; i += 8) {
 
-                var temperatures = document.getElementById('temperatures');
-                temperatures.textContent = 'Temperature: ' + dataForecast.daily[i].temp.day + ' °F';
+                var forecastFiveDays = document.getElementById('fiveDayForecast');
 
-                var humiditys = document.getElementById('humiditys');
-                humiditys.textContent = 'Humidity: ' + dataForecast.daily[i].humidity + ' %';
+                var unix_timestamp = dataForecast.list[i].dt_txt;
+                var date = new Date(unix_timestamp);
+                var forecastDate = dayjs(date).format('MM/DD/YYYY');
 
-                var winds = document.getElementById('wind-speeds');
-                winds.textContent = 'Wind-Speed: ' + dataForecast.daily[i].wind.speed + ' MPH';
+                // dynamically adding to html
+                var div1 = document.createElement('div');
+                div1.setAttribute('class', 'col-sm');
+                forecastFiveDays.appendChild(div1);
 
+                var div2 = document.createElement('div');
+                div2.setAttribute('class', 'card card-body bg-primary border-dark')
+                div1.appendChild(div2);
+
+                var ptag1 = document.createElement('p');
+                ptag1.textContent = forecastDate
+                div2.appendChild(ptag1);
+
+                var img2 = document.createElement('img');
+                img2.setAttribute('src', 'https://openweathermap.org/img/wn/' + dataForecast.list[i].weather[0].icon + '@2x.png');
+                img2.setAttribute('alt', dataForecast.list[i].weather[0].description);
+                div2.appendChild(img2);
+
+                var forecastTemp = dataForecast.list[i].main.temp;
+                var ptag2 = document.createElement('p');
+                div2.appendChild(ptag2);
+                ptag2.textContent = 'Temp:' + forecastTemp + ' °F';
+
+                var forecastHumidity = dataForecast.list[i].main.humidity;
+                var ptag3 = document.createElement('p');
+                div2.appendChild(ptag3);
+                ptag3.textContent = 'Humidity:' + forecastHumidity + ' %';
+
+                var forecastWindSpeed = dataForecast.list[i].wind.speed;
+                var ptag4 = document.createElement('p');
+                div2.appendChild(ptag4);
+                ptag4.textContent = 'Wind-Speed:' + forecastWindSpeed + ' MPH';
             };
         });
 };
