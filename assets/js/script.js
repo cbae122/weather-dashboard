@@ -26,7 +26,11 @@ var apiKey = 'b63352d7a434d5e352882d0272d386e4';
 
 function handleFormSubmit(event) {
     event.preventDefault();
+    firstApi();
+};
 
+
+function firstApi(query) {
     var formInputValue = formInputEl.value;
     console.log('user input: ' + formInputValue);
 
@@ -55,9 +59,53 @@ function handleFormSubmit(event) {
         var wind = document.getElementById('wind-speed');
         wind.textContent = 'Wind-Speed: ' + data.wind.speed + ' MPH';
 
+        var lat = data.coord.lat;
+        var lon = data.coord.lon;
+        console.log('lat: ' +lat + ' lon:' +lon);
+        secondApi(lat, lon);
     })
+};
 
-}
+function secondApi(lat, lon) {
+
+    var apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
+    console.log(apiUrl);
+
+    fetch(apiUrl)
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (dataForecast) {
+        console.log(dataForecast);
+        $('#fiveDayForecast').empty();
+
+        for (var i = 1; 1 < 6; i++) {
+            var forecastBody = document.getElementById('fiveDayForecast');
+
+            var timing = data.daily[i].dt;
+            var date = new Date(timing * 1000);
+            var forecastDays = dayjs(date).format('MM/DD/YYYY');
+
+
+        }
+
+        var weatherSymbol = data.weather[0].icon;
+        var symbolUrl = `https://openweathermap.org/img/wn/` + weatherSymbol +  `@2x.png`;
+        var today = dayjs();
+        var city = document.getElementById('currentCity');
+        city.innerHTML = (data.name + '' + '(' + today.format('MM/DD/YYYY') + ')' + '<img src="' + symbolUrl + '">');
+
+        var temperature = document.getElementById('temperature');
+        temperature.textContent = 'Temperature: ' + data.main.temp + ' °F';
+
+        var humidity = document.getElementById('humidity');
+        humidity.textContent = 'Humidity: ' + data.main.humidity + ' %';
+
+        var wind = document.getElementById('wind-speed');
+        wind.textContent = 'Wind-Speed: ' + data.wind.speed + ' MPH';
+
+    })
+};
 
 formEl.addEventListener('submit', handleFormSubmit);
 
