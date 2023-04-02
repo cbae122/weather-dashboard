@@ -124,6 +124,8 @@ function displaySearchedCities () {
 
     var citySearchEl = document.getElementById('searchedCity');
 
+    citySearchEl.innerHTML = '';
+
     for (var i = 0; i < citySearched.length; i++) {
         var searchedCityBtn = document.createElement('button');
         searchedCityBtn.classList.add('btn', 'btn-primary', 'my-2');
