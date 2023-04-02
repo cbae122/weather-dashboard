@@ -13,30 +13,62 @@
 // `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${city}&units=imperial`
 
 
-var apiKey = 'b63352d7a434d5e352882d0272d386e4';
+
 
 var today = dayjs();
 var todaysDate = (today.format('MM/DD/YYYY'));
 var city = '';
 var citySearch = $('#city-name');
 var submitButtonEl = $('submit-button');
+var formEl = document.querySelector('#city-search-form');
+var formInputEl = document.querySelector('#city-name');
+var apiKey = 'b63352d7a434d5e352882d0272d386e4';
 
-// function weatherDisplay (weather) {
-//     $('#day-temp').text(weather[0].temperature);
-//     $('#day-wind').text(weather[0].wind);
-//     $('#day-humidity').text(weather[0].humidity);
-//     $('#searchedCity').text(city);
-//     for (var i = 0; i <= 5; i++) {
-//         $('#day'+i+'-temp').text(weather[i].temp);
+function handleFormSubmit(event) {
+    event.preventDefault();
+
+    var formInputValue = formInputEl.value;
+    console.log('user input: ' + formInputValue);
+
+    var apiUrl = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${formInputValue}&units=imperial`;
+    console.log(apiUrl);
+
+    fetch(apiUrl)
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        console.log(data);
+
+        
+    })
+
+}
+
+formEl.addEventListener('submit', handleFormSubmit);
+
+// submitButtonEl.on('click',showWeather);
+
+// function showWeather(event) {
+//     event.preventDefault();
+//     if(citySearch.val().trim() !='') {
+//         city = citySearch.val().trim();
+//         searchedWeather(city);
+//         console.log(event);
+
+//         var searchedCityList = document.getElementById('searched-city-list');
+//         searchedCityList.textContent = '';
+
+
 //     }
 // }
 
-function showWeather(event) {
-    event.preventDefault();
-    if(citySearch.val().trim() !='') {
-        city = citySearch.val().trim();
-        searchedWeather(city);
+// function searchedWeather(city) {
+//     var apiKey = 'b63352d7a434d5e352882d0272d386e4';
+//     var url = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${city}&units=imperial`;
 
-        
-    }
-}
+//     fetch(url)
+//     .then(function (response) {
+//         console.log(response);
+//     })
+// }
