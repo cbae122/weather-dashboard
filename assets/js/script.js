@@ -15,14 +15,11 @@
 
 var apiKey = 'b63352d7a434d5e352882d0272d386e4';
 
-var formEl = document.querySelector('#city-search-form');
-var cityNameEl = $('#city-name');
+var today = dayjs();
+var todaysDate = (today.format('MM/DD/YYYY'));
+var city = '';
+var citySearch = $('#city-name');
 var submitButtonEl = $('submit-button');
-var searchedCityEl = $('searchedCity');
-var city;
-var weather = [];
-var citySearch = [];
-
 
 // function weatherDisplay (weather) {
 //     $('#day-temp').text(weather[0].temperature);
@@ -34,6 +31,3 @@ var citySearch = [];
 //     }
 // }
 
-function clearLocalStorage() {
-    localStorage.clear();
-}
