@@ -121,8 +121,7 @@ function displaySearchedCities () {
     if (localStorage.getItem('city')) {
         citySearched = JSON.parse(localStorage.getItem('city'));
     }
-    // var searchedCityList = '';
-    // var citySearchEl.innerHTML = '';
+
     var citySearchEl = document.getElementById('searchedCity');
 
     for (var i = 0; i < citySearched.length; i++) {
@@ -131,24 +130,9 @@ function displaySearchedCities () {
         searchedCityBtn.setAttribute('style', 'width: 100%');
         searchedCityBtn.textContent = `${citySearched[i]}`;
         citySearchEl.appendChild(searchedCityBtn);
-
-
-
-        // searchedCityList =
-        //     searchedCityList +
-        //     `<button class='btn btn-secondary my-2' type='submit'>${citySearched[i]}</button>`;
     }
     return;
-
-
-    // // citySearchEl.innerHTML = searchedCityList;
-    // var cityListButton = document.querySelectorAll('.my-2');
-    // for (var i = 0; i < cityListButton.length; i++) {
-    //     cityListButton[i].addEventListener('click', function () {
-    //         firstApi(this.textContent);
-    //     });
-    // }
-}
+};
 
 displaySearchedCities();
 
