@@ -33,6 +33,8 @@ function firstApi(query) {
                 localStorage.setItem('city', JSON.stringify(citySearched));
             }
 
+            displaySearchedCities();
+
             var weatherSymbol = data.weather[0].icon;
             var symbolUrl = `https://openweathermap.org/img/wn/` + weatherSymbol + `@2x.png`;
             var today = dayjs();
@@ -52,7 +54,6 @@ function firstApi(query) {
             var lon = data.coord.lon;
             console.log('lat: ' + lat + ' lon:' + lon);
             secondApi(lat, lon);
-
         })
 };
 
@@ -116,8 +117,39 @@ function secondApi(lat, lon) {
         });
 };
 
-// function displaySearchedCities () {
-//     if (localStorage.getItem('city'))
-// }
+function displaySearchedCities () {
+    if (localStorage.getItem('city')) {
+        citySearched = JSON.parse(localStorage.getItem('city'));
+    }
+    // var searchedCityList = '';
+    // var citySearchEl.innerHTML = '';
+    var citySearchEl = document.getElementById('searchedCity');
+
+    for (var i = 0; i < citySearched.length; i++) {
+        var searchedCityBtn = document.createElement('button');
+        searchedCityBtn.classList.add('btn', 'btn-primary', 'my-2');
+        searchedCityBtn.setAttribute('style', 'width: 100%');
+        searchedCityBtn.textContent = `${citySearched[i]}`;
+        citySearchEl.appendChild(searchedCityBtn);
+
+
+
+        // searchedCityList =
+        //     searchedCityList +
+        //     `<button class='btn btn-secondary my-2' type='submit'>${citySearched[i]}</button>`;
+    }
+    return;
+
+
+    // // citySearchEl.innerHTML = searchedCityList;
+    // var cityListButton = document.querySelectorAll('.my-2');
+    // for (var i = 0; i < cityListButton.length; i++) {
+    //     cityListButton[i].addEventListener('click', function () {
+    //         firstApi(this.textContent);
+    //     });
+    // }
+}
+
+displaySearchedCities();
 
 formEl.addEventListener('submit', handleFormSubmit);
