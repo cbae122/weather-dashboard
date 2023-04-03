@@ -11,13 +11,12 @@ var apiKey = 'b63352d7a434d5e352882d0272d386e4';
 
 function handleFormSubmit(event) {
     event.preventDefault();
-    firstApi();
+    var formInputValue = formInputEl.value;
+    firstApi(formInputValue);
 };
 
 
-function firstApi(query) {
-    var formInputValue = formInputEl.value;
-    console.log('user input: ' + formInputValue);
+function firstApi(formInputValue) {
 
     var apiUrl = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${formInputValue}&units=imperial`;
     console.log(apiUrl);
