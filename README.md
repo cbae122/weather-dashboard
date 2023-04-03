@@ -17,7 +17,7 @@
 ![weather dashboard.](./assets/images/Screenshot%202023-04-02%20at%205.27.30%20PM.png)
 
 ## Website Link
-- 
+- https://cbae122.github.io/weather-dashboard/
 
 ## Credits
 - Instructor Diarmuid Murphy - during office hours, reviewed broken codes and provided solutions 
