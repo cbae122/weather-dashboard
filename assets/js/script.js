@@ -38,7 +38,7 @@ function firstApi(formInputValue) {
             var symbolUrl = `https://openweathermap.org/img/wn/` + weatherSymbol + `@2x.png`;
             var today = dayjs();
             var city = document.getElementById('currentCity');
-            city.innerHTML = (data.name + '' + '(' + today.format('MM/DD/YYYY') + ')' + '<img src="' + symbolUrl + '">');
+            city.innerHTML = (data.name + '' + ' (' + today.format('MM/DD/YYYY') + ')' + '<img src="' + symbolUrl + '">');
 
             var temperature = document.getElementById('temperature');
             temperature.textContent = 'Temperature: ' + data.main.temp + ' °F';
