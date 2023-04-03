@@ -14,7 +14,7 @@
 - List of previous searched cities will populate.
 - See screenshot below as example
 
-![weather dashboard.]()
+![weather dashboard.](./assets/images/Screenshot%202023-04-02%20at%205.27.30%20PM.png)
 
 ## Website Link
 - 
